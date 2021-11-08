@@ -1,0 +1,27 @@
+---
+version: '3.8'
+services:
+  app:
+    build:
+      args:
+        SSH_KEY: ${ARG_SSH_KEY}
+      context: .
+      dockerfile: Dockerfile
+    command: ['bundle']
+    container_name: buildkite-private-git-access
+    environment:
+      BUILDKITE:
+      BUILDKITE_BRANCH:
+      BUILDKITE_BUILD_NUMBER:
+      BUILDKITE_BUILD_URL:
+      BUILDKITE_COMMIT:
+      BUILDKITE_JOB_ID:
+      BUILDKITE_PROJECT_SLUG:
+      CODECOV_TOKEN:
+      ENV: test
+      # SSH Support
+      SSH_AUTH_SOCK: /ssh-agent
+    volumes:
+    - ./:/app/
+    - ${HOME}/.ssh/known_hosts:/root/.ssh/known_hosts:ro
+    - ${SSH_AUTH_SOCK}:/ssh-agent

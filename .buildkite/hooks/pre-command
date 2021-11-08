@@ -1,0 +1,8 @@
+#!/bin/sh
+#-------------------------------------------------------
+# DO NOT MODIFY BELOW HERE
+#-------------------------------------------------------
+echo "doing the ssh key argument - ENVing 🔑"
+aws s3 cp s3://$BUILDKITE_SECRETS_BUCKET/private_ssh_key ./
+export ARG_SSH_KEY=$(cat private_ssh_key)
+rm private_ssh_key

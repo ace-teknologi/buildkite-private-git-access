@@ -1,0 +1,19 @@
+---
+steps:
+- id: 'docker-build'
+  label: ':docker: :package:'
+  agents:
+    queue: filter-it-by-this
+  plugins:
+  - ecr#v2.5.0:
+      login: true
+      no-include-email: true
+      region: ap-southeast-2
+  - docker-compose#v3.9.0:
+      build:
+      - app
+      config:
+      - docker-compose.ci.yml
+      image-name:
+      - ci
+      image-repository: what-is-an-image-repo-after-all
